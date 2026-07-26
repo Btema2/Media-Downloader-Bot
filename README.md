@@ -8,6 +8,9 @@
     <a href="README_UA.md">🇺🇦 Українська</a> •
     <a href="README_PL.md">🇵🇱 Polski</a>
   </p>
+  <p>
+    📖 <b>Installation Guide:</b> <a href="install_guide.md">Full Server Installation Guide (English)</a>
+  </p>
 </div>
 
 <p align="center">
