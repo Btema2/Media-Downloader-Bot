@@ -86,20 +86,19 @@ python main.py
 
 ## 🚀 Розгортання на сервері (Ubuntu/Debian)
 
-У репозиторії передбачено скрипт для автоматичного розгортання бота разом із локальним сервером Telegram API. Скрипт самостійно встановить необхідні залежності, скомпілює сервер, створить віртуальне середовище Python та налаштує відповідні сервіси `systemd`.
+1. Отримайте токен у [@BotFather](https://t.me/BotFather) та свій ID у [@userinfobot](https://t.me/userinfobot) (для `ADMIN_IDS`).
+2. Отримайте `API_ID` та `API_HASH` на [my.telegram.org](https://my.telegram.org).
+3. Склонуйте репозиторій та запустіть скрипт розгортання:
+   ```bash
+   git clone https://github.com/your-username/Media-Downloader-Bot.git
+   cd Media-Downloader-Bot
+   chmod +x auto_deploy.sh
+   ./auto_deploy.sh
+   ```
+4. Додайте файл `cookies.txt` у корінь проєкту для підтримки YouTube 18+, Instagram та Facebook.
 
-```bash
-git clone https://github.com/your-username/Media-Downloader-Bot.git
-cd Media-Downloader-Bot
-chmod +x auto_deploy.sh
-./auto_deploy.sh
-```
+📖 **Детальна інструкція:** Покрокове керівництво з налаштування, експорту cookies та усунення несправностей дивіться у [install_guide.md](install_guide.md).
 
-Після успішного виконання скрипта бот працюватиме у фоновому режимі безперервно.
-Для перевірки журналів (логів) системи скористайтеся командою:
-```bash
-sudo journalctl -u tg-media-bot -f
-```
 
 ## ⚠️ Правова інформація (Disclaimer)
 
