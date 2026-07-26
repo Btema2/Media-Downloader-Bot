@@ -4,7 +4,7 @@
 
   <p>
     <b>Język / Language / Мова:</b><br/>
-    <a href="README.md">🇬🇧 English</a> •
+    <a href="../README.md">🇬🇧 English</a> •
     <a href="README_UA.md">🇺🇦 Українська</a> •
     <a href="README_PL.md">🇵🇱 Polski</a>
   </p>
