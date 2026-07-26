@@ -8,9 +8,6 @@
     <a href="README_UA.md">🇺🇦 Українська</a> •
     <a href="README_PL.md">🇵🇱 Polski</a>
   </p>
-  <p>
-    📖 <b>Installation Guide:</b> <a href="install_guide.md">Full Server Installation Guide (English)</a>
-  </p>
 </div>
 
 <p align="center">
@@ -120,7 +117,7 @@ python main.py
    ```
 4. Upload `cookies.txt` to the project root for YouTube 18+, Instagram, and Facebook downloads.
 
-📖 **Detailed Installation Guide:** Check out [install_guide.md](install_guide.md) (or [Ukrainian](install_guide_ua.md) / [Polish](install_guide_pl.md)) for step-by-step credentials acquisition, systemd configuration, cookies setup, and troubleshooting.
+📖 **Detailed Installation Guide:** For step-by-step instructions, credentials acquisition, systemd configuration, and troubleshooting, see the [English Server Installation Guide (install_guide.md)](install_guide.md).
 
 ---
 

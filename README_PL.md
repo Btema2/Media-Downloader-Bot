@@ -8,9 +8,6 @@
     <a href="README_UA.md">🇺🇦 Українська</a> •
     <a href="README_PL.md">🇵🇱 Polski</a>
   </p>
-  <p>
-    📖 <b>Przewodnik instalacji:</b> <a href="install_guide_pl.md">Pełny przewodnik instalacji na serwerze (Polski)</a>
-  </p>
 </div>
 
 <p align="center">
@@ -120,7 +117,7 @@ python main.py
    ```
 4. Umieść plik `cookies.txt` w głównym katalogu projektu do obsługi YouTube 18+, Instagrama oraz Facebooka.
 
-📖 **Szczegółowa instrukcja instalacji:** Przeczytaj [install_guide_pl.md](install_guide_pl.md) (lub wersję [Angielską](install_guide.md) / [Ukraińską](install_guide_ua.md)), aby zapoznać się ze szczegółowym przewodnikiem dotyczącym pozyskiwania kluczy, konfiguracji usług systemd oraz rozwiązywania problemów.
+📖 **Szczegółowa instrukcja instalacji:** Aby zapoznać się ze szczegółowym przewodnikiem dotyczącym pozyskiwania kluczy, konfiguracji usług systemd oraz rozwiązywania problemów, zobacz [Instrukcję instalacji po polsku (install_guide_pl.md)](install_guide_pl.md).
 
 ---
 

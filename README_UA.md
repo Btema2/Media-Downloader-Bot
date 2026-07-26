@@ -8,9 +8,6 @@
     <a href="README_UA.md">🇺🇦 Українська</a> •
     <a href="README_PL.md">🇵🇱 Polski</a>
   </p>
-  <p>
-    📖 <b>Інструкція з інсталяції:</b> <a href="install_guide_ua.md">Повна інструкція з розгортання (Українська)</a>
-  </p>
 </div>
 
 <p align="center">
@@ -120,7 +117,7 @@ python main.py
    ```
 4. Додайте файл `cookies.txt` у корінь проєкту для підтримки YouTube 18+, Instagram та Facebook.
 
-📖 **Детальна інструкція:** Покрокове керівництво з налаштування, експорту cookies та усунення несправностей дивіться у [install_guide_ua.md](install_guide_ua.md) (або [English](install_guide.md) / [Polish](install_guide_pl.md)).
+📖 **Детальна інструкція:** Покрокове керівництво з налаштування, експорту cookies та усунення несправностей дивіться у [Інструкції з інсталяції українською (install_guide_ua.md)](install_guide_ua.md).
 
 ---
 
