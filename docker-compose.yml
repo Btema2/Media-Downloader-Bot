@@ -1,0 +1,52 @@
+services:
+  telegram-bot-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.telegram-bot-api
+    env_file:
+      - .env
+    volumes:
+      - tg-api-data:/data
+    ports:
+      - "127.0.0.1:8081:8081"
+    healthcheck:
+      # telegram-bot-api returns HTTP 404 (server up, unknown route) for
+      # requests to "/" - that's the expected liveness signal, not a failure.
+      test: ["CMD-SHELL", "curl -s http://localhost:8081/ | grep -q '\"error_code\"'"]
+      interval: 10s
+      timeout: 5s
+      start_period: 15s
+      retries: 5
+    restart: unless-stopped
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      # LOCAL_API_SERVER_URL in .env points at 127.0.0.1:8081, which is only
+      # valid on the host. Inside the compose network it must hit the
+      # telegram-bot-api service name instead.
+      - LOCAL_API_SERVER_URL=http://telegram-bot-api:8081
+      - DB_PATH=/app/data/database.db
+    depends_on:
+      telegram-bot-api:
+        condition: service_healthy
+    volumes:
+      - ./cookies.txt:/app/cookies.txt:ro
+      - bot-data:/app/data
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/webapp/index.html"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  tg-api-data:
+  bot-data:

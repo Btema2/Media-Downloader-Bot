@@ -1,0 +1,41 @@
+FROM debian:bookworm-slim AS builder
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    gperf \
+    zlib1g-dev \
+    libssl-dev \
+    git \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /src
+RUN git clone --recursive https://github.com/tdlib/telegram-bot-api.git .
+
+RUN rm -rf build && mkdir build && cd build \
+    && cmake -DCMAKE_BUILD_TYPE=Release .. \
+    && make -j"$(nproc)"
+
+FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libssl3 \
+    zlib1g \
+    ca-certificates \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /src/build/telegram-bot-api /usr/local/bin/telegram-bot-api
+
+RUN mkdir -p /data
+VOLUME /data
+
+EXPOSE 8081
+
+# telegram-bot-api answers unknown paths with an HTTP 404 JSON body (not a
+# failure - it means the server itself is up), so this must not use curl -f.
+HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=5 \
+    CMD curl -s http://localhost:8081/ | grep -q '"error_code"' || exit 1
+
+CMD ["sh", "-c", "exec telegram-bot-api --local --http-port=8081 --dir=/data --api-id=\"$API_ID\" --api-hash=\"$API_HASH\""]
