@@ -1,18 +1,21 @@
 services:
+  # Prebuilt image (aiogram/telegram-bot-api), rebuilt daily from upstream
+  # tdlib/telegram-bot-api master. Building from source instead (Dockerfile.
+  # telegram-bot-api) takes ~25 minutes - see docker-compose.build.yml to
+  # opt into that instead.
   telegram-bot-api:
-    build:
-      context: .
-      dockerfile: Dockerfile.telegram-bot-api
-    env_file:
-      - .env
+    image: aiogram/telegram-bot-api:10.2
+    environment:
+      - TELEGRAM_API_ID=${API_ID}
+      - TELEGRAM_API_HASH=${API_HASH}
+      - TELEGRAM_LOCAL=1
+      - TELEGRAM_STAT=1
     volumes:
-      - tg-api-data:/data
+      - tg-api-data:/var/lib/telegram-bot-api
     ports:
       - "127.0.0.1:8081:8081"
     healthcheck:
-      # telegram-bot-api returns HTTP 404 (server up, unknown route) for
-      # requests to "/" - that's the expected liveness signal, not a failure.
-      test: ["CMD-SHELL", "curl -s http://localhost:8081/ | grep -q '\"error_code\"'"]
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:8082/ >/dev/null 2>&1"]
       interval: 10s
       timeout: 5s
       start_period: 15s

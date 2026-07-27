@@ -101,6 +101,24 @@ chmod +x auto_deploy.sh
 sudo journalctl -u tg-media-bot -f
 ```
 
+---
+
+## 🐳 Розгортання через Docker
+
+```bash
+touch cookies.txt   # або скопіюйте реальний файл для Instagram/Facebook/YouTube 18+
+docker compose up -d
+```
+
+Збирає бота та завантажує готовий образ `telegram-bot-api` ([`aiogram/telegram-bot-api`](https://hub.docker.com/r/aiogram/telegram-bot-api)), який щодня перезбирається з офіційного `tdlib/telegram-bot-api`. Файли `.env` та `cookies.txt` зчитуються під час запуску, а не вбудовуються в образ.
+
+Хочете зібрати `telegram-bot-api` з вихідного коду (займає ~25 хвилин)?
+```bash
+docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+```
+
+---
+
 ## ⚠️ Правова інформація (Disclaimer)
 
 Цей проєкт розроблено **виключно в навчальних та дослідницьких цілях**, як демонстрацію можливостей створення ботів, взаємодії з API та обробки медіафайлів.  

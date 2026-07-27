@@ -19,23 +19,26 @@ RUN rm -rf build && mkdir build && cd build \
 
 FROM debian:bookworm-slim
 
+# wget (not curl) to match the prebuilt aiogram/telegram-bot-api image's
+# healthcheck contract - this Dockerfile is an escape hatch that must stay a
+# drop-in swap for it in docker-compose.build.yml.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl3 \
     zlib1g \
     ca-certificates \
-    curl \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /src/build/telegram-bot-api /usr/local/bin/telegram-bot-api
 
-RUN mkdir -p /data
-VOLUME /data
+RUN mkdir -p /var/lib/telegram-bot-api /tmp/telegram-bot-api
+VOLUME /var/lib/telegram-bot-api
 
-EXPOSE 8081
+EXPOSE 8081 8082
 
-# telegram-bot-api answers unknown paths with an HTTP 404 JSON body (not a
-# failure - it means the server itself is up), so this must not use curl -f.
+# --http-stat-port serves a plain 200, unlike "/" on the main port (404 JSON,
+# server-alive-but-unknown-route - not a failure, but awkward to healthcheck).
 HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=5 \
-    CMD curl -s http://localhost:8081/ | grep -q '"error_code"' || exit 1
+    CMD wget -q -O - http://127.0.0.1:8082/ >/dev/null 2>&1 || exit 1
 
-CMD ["sh", "-c", "exec telegram-bot-api --local --http-port=8081 --dir=/data --api-id=\"$API_ID\" --api-hash=\"$API_HASH\""]
+CMD ["sh", "-c", "exec telegram-bot-api --local --http-port=8081 --http-stat-port=8082 --dir=/var/lib/telegram-bot-api --temp-dir=/tmp/telegram-bot-api --api-id=\"$TELEGRAM_API_ID\" --api-hash=\"$TELEGRAM_API_HASH\""]
