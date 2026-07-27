@@ -121,6 +121,22 @@ python main.py
 
 ---
 
+## 🐳 Docker Deployment
+
+```bash
+touch cookies.txt   # or copy in a real one for Instagram/Facebook/YouTube 18+
+docker compose up -d
+```
+
+Builds the bot and pulls a prebuilt `telegram-bot-api` image ([`aiogram/telegram-bot-api`](https://hub.docker.com/r/aiogram/telegram-bot-api)), rebuilt daily from upstream `tdlib/telegram-bot-api`. `.env` and `cookies.txt` are read at runtime, never baked into the image.
+
+Prefer to compile `telegram-bot-api` from source instead (takes ~25 minutes)?
+```bash
+docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+```
+
+---
+
 ## ⚠️ Disclaimer
 
 This project is created **for educational and research purposes only** as a demonstration of bot development, API integrations, and media handling.  
